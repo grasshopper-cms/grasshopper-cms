@@ -1,0 +1,42 @@
+#header , #masthead {
+    display: none;
+}
+
+#plugin-sidebar{
+    background-color: #1d354d;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    color: #e1ffff;
+    margin: 0;
+    padding: 0;
+}
+#plugin-header{
+    background-color: #1d354d;
+    height:50px;
+    line-height: 50px;
+}
+#plugin-header .brand {
+    position: relative;
+    top: 24px;
+    display: block;
+    overflow: hidden;
+    width: 280px;
+    height: 32px;
+    margin-right: .75em;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 600;
+    background: url(img/logo.3e46db0c.png) no-repeat 0 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+#plugin-main{
+    width: 80%;
+    float: left;
+    margin: 0;
+    margin-left: 200px;
+    padding: 0;
+    display: inline;
+}
