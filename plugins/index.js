@@ -28,12 +28,12 @@ function startup(options) {
             mountPath: '/api',
             plugins : options.plugins
         });
-
         // Then load legacy routes. These will be shadowed by the standard routes.
-        options.app.use('/admin', options.express.static(legacyAdminPublicDir));
+        options.app.use('/admin',options.express.static(path.join(legacyAdminPublicDir,'admin')));
         options.app.use('/admin', (req, res) => {
             res.sendFile(path.join(legacyAdminPublicDir, 'admin', 'index.html'));
         });
         return grasshopper;
     };
 }
+
