@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8"/>
+    <base href="/gh-admin/">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Grasshopper</title>
+    <link rel="stylesheet" href="plugin/reset.css"/>
+    <link rel="stylesheet" href="themes/main.css"/>
+    <link rel="stylesheet" href="plugin/styles.css"/>
+    <link rel="stylesheet" href="plugin/sidebar.css"/>
+</head>
+
+<body>
+<div id="plugin-sidebar">
+    <div class="nav-side-menu">
+        <div class="brand">&nbsp;</div>
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+        <div class="menu-list">
+
+            <ul id="menu-content" class="menu-content collapse out">
+
+                <li>
+                    <a href="/items">
+                        <i class="fa fa-table fa-lg"></i> Content
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/content-types">
+                        <i class="fa fa-tags fa-lg"></i> Types
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/users">
+                        <i class="fa fa-users fa-lg"></i> Users
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="plugin-main">
+    <div id="plugin-header"><a class="brand" name="brandElement" href="/items"></a></div>
+    <div id="siteContainter">
+        <div id="header"></div>
+        <div id="masthead"></div>
+        <div id="loading-overlay-header"></div>
+        <div id="loading-overlay">
+            <img class="loading-overlay-image" src="themes/img/loading-spinner-horizontal.f091d23f.gif">
+        </div>
+        <div id="sidebar"></div>
+        <div id="stage">
+        </div>
+        <div id="alertBox"></div>
+        <div id="footer"></div>
+        <div id="modal"></div>
+    </div>
+</div>
+
+<!-- build:js main.js -->
+<script data-main="main" src="vendor/requirejs/require.js"></script>
+<!-- endbuild -->
+
+</body>
+
+</html>
+
+
