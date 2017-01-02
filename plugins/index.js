@@ -29,9 +29,9 @@ function startup(options) {
             plugins : options.plugins
         });
         // Then load legacy routes. These will be shadowed by the standard routes.
-        options.app.use('/admin',options.express.static(path.join(legacyAdminPublicDir,'admin')));
-        options.app.use('/admin', (req, res) => {
-            res.sendFile(path.join(legacyAdminPublicDir, 'admin', 'index.html'));
+        options.app.use('/gh-admin',options.express.static(path.join(legacyAdminPublicDir,'admin-dev')));
+        options.app.use('/gh-admin', (req, res) => {
+            res.sendFile(path.join(legacyAdminPublicDir, 'admin-dev', 'index.html'));
         });
         return grasshopper;
     };

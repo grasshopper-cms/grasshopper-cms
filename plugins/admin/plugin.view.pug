@@ -9,10 +9,10 @@ html.no-js(lang='en')
         meta(name='viewport', content='width=device-width')
         title Grasshopper
         link(rel='stylesheet' href='plugin/reset.css')
-        link(rel='stylesheet' href='/admin/plugin/styles.css')
-        link(rel='stylesheet' href='/admin/plugin/sidebar.css')
-        link(rel='stylesheet' href=`/admin/${pluginName}/dist/styles/main.css`)
-        link(rel='stylesheet' href=`/admin/${pluginName}/dist/build.css`)
+        link(rel='stylesheet' href='/gh-admin/plugin/styles.css')
+        link(rel='stylesheet' href='/gh-admin/plugin/sidebar.css')
+        link(rel='stylesheet' href=`/gh-admin/${pluginName}/dist/styles/main.css`)
+        link(rel='stylesheet' href=`/gh-admin/${pluginName}/dist/build.css`)
     body
         #plugin-sidebar
             .nav-side-menu
@@ -21,19 +21,19 @@ html.no-js(lang='en')
                 .menu-list
                     ul#menu-content.menu-content.collapse.out
                         li
-                            a(href='/admin/items')
+                            a(href='/gh-admin/items')
                                 i.fa.fa-table.fa-lg
                                 |  Content
                         li
-                            a(href='/admin/content-types')
+                            a(href='/gh-admin/content-types')
                                 i.fa.fa-tags.fa-lg
                                 |  Types
                         li
-                            a(href='/admin/users')
+                            a(href='/gh-admin/users')
                                 i.fa.fa-users.fa-lg
                                 |  Users
                         li
-                            a(href='/admin/commerce/#/')
+                            a(href='/gh-admin/commerce/#/')
                                 i.fa.fa-shopping-cart.fa-lg
                                 |  Commerce
         #plugin-main
@@ -43,4 +43,4 @@ html.no-js(lang='en')
                 // Where the plugin gets loaded
                 #app
 
-        script(src=`/admin/${pluginName}/dist/build.js`)
+        script(src=`/gh-admin/${pluginName}/dist/build.js`)
