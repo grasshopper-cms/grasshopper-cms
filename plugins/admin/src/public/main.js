@@ -318,7 +318,7 @@ require([
         Backbone.history.start({
             hashChange : false,
             pushState: true,
-            root: '/gh-admin'
+            root: window.adminMountPoint
         });
 
         $(document).on('click', 'a:not([data-bypass])', function (evt) {

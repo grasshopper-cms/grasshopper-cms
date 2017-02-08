@@ -1,0 +1,57 @@
+doctype html
+//if IE 8
+  html.no-js.lt-ie9(lang='en')
+// [if gt IE 8] <!
+html.no-js(lang='en')
+    // <![endif]
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width')
+        title Grasshopper Admin
+        base(href=`/${adminMountPoint}`)
+        link(rel='stylesheet' href=`/${adminMountPoint}styles/reset.css`)
+        link(rel='stylesheet' href=`/${adminMountPoint}styles/styles.css`)
+        link(rel='stylesheet' href=`/${adminMountPoint}styles/sidebar.css`)
+        link(rel='stylesheet' href=`/${adminMountPoint}themes/main.css`)
+
+        link(rel='stylesheet' href=`/${adminMountPoint}${pluginName}styles/main.css`)
+    body
+        #plugin-sidebar
+            .nav-side-menu
+                .brand  
+                i.fa.fa-bars.fa-2x.toggle-btn(data-toggle='collapse', data-target='#menu-content')
+                .menu-list
+                    ul#menu-content.menu-content.collapse.out
+                        li
+                            a(href=`/${adminMountPoint}items`)
+                                i.fa.fa-table.fa-lg
+                                |  Content
+                        li
+                            a(href=`/${adminMountPoint}content-types`)
+                                i.fa.fa-tags.fa-lg
+                                |  Types
+                        li
+                            a(href=`/${adminMountPoint}users`)
+                                i.fa.fa-users.fa-lg
+                                |  Users
+        #plugin-main
+            #plugin-header
+                a.brand(name='brandElement', href='/items')
+            #siteContainter
+                // Where the plugin gets loaded
+                #app
+                    #header
+                    #masthead
+                    #loading-overlay-header
+                    #loading-overlay
+                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.f091d23f.gif')
+                    #sidebar
+                    #stage
+                    #alertBox
+                    #footer
+                    #modal
+
+        script.
+            window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
+
+        script(data-main="main" src=`/${adminMountPoint}${pluginName}main.min.js`)
