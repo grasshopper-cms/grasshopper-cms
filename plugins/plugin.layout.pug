@@ -9,12 +9,12 @@ html.no-js(lang='en')
         meta(name='viewport', content='width=device-width')
         title Grasshopper Admin
         base(href=`/${adminMountPoint}`)
-        link(rel='stylesheet' href=`/${adminMountPoint}styles/reset.css`)
-        link(rel='stylesheet' href=`/${adminMountPoint}styles/styles.css`)
-        link(rel='stylesheet' href=`/${adminMountPoint}styles/sidebar.css`)
-        link(rel='stylesheet' href=`/${adminMountPoint}themes/main.css`)
+        link(rel='stylesheet' href=`styles/reset.css`)
+        link(rel='stylesheet' href=`styles/styles.css`)
+        link(rel='stylesheet' href=`styles/sidebar.css`)
+        link(rel='stylesheet' href=`themes/main.css`)
 
-        link(rel='stylesheet' href=`/${adminMountPoint}${pluginName}styles/main.css`)
+        link(rel='stylesheet' href=`${pluginName}styles/main.css`)
     body
         #plugin-sidebar
             .nav-side-menu
@@ -23,15 +23,15 @@ html.no-js(lang='en')
                 .menu-list
                     ul#menu-content.menu-content.collapse.out
                         li
-                            a(href=`/${adminMountPoint}items`)
+                            a(href=`items`)
                                 i.fa.fa-table.fa-lg
                                 |  Content
                         li
-                            a(href=`/${adminMountPoint}content-types`)
+                            a(href=`content-types`)
                                 i.fa.fa-tags.fa-lg
                                 |  Types
                         li
-                            a(href=`/${adminMountPoint}users`)
+                            a(href=`users`)
                                 i.fa.fa-users.fa-lg
                                 |  Users
         #plugin-main
@@ -54,4 +54,8 @@ html.no-js(lang='en')
         script.
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
 
-        script(data-main="main" src=`/${adminMountPoint}${pluginName}main.min.js`)
+        if mode === 'develop'
+            script(src=`/${adminMountPoint}${pluginName}vendor/requirejs/require.js`)
+            script(data-main="main" src=`/${adminMountPoint}${pluginName}main.js`)
+        else
+            script(data-main="main" src=`/${adminMountPoint}${pluginName}main.min.js`)

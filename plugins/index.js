@@ -49,7 +49,8 @@ function startup(options) {
             //res.sendFile(path.join(legacyAdminPublicDir, 'admin-dev', 'index.html'));
             res.render(template, {
                 adminMountPoint: `${options.adminMountPoint}/`,
-                pluginName: options.pluginName ?  `${options.pluginName}/` : ''
+                pluginName: options.pluginName ?  `${options.pluginName}/` : '',
+                mode: options.mode
             });
         });
         return grasshopper;
