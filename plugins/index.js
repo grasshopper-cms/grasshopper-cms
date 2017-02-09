@@ -23,8 +23,9 @@ function startup(options) {
     return grasshopper => {
 
         //set adminDir
-        options.adminMountPoint = (options.adminMountPoint || 'admin');
+        const adminMountPoint = typeof options.adminMountPoint !== 'undefined' ? options.adminMountPoint : 'admin';
         const template = require.resolve('./plugin.layout.pug');
+
 
         //set engine
         options.app.set('view engine', 'pug');
@@ -36,19 +37,19 @@ function startup(options) {
             grasshopperService : grasshopper,
             mountPath: '/api',
             plugins : options.plugins,
-            adminMountPoint: options.adminMountPoint
+            adminMountPoint: adminMountPoint
         });
         // Then load legacy routes. These will be shadowed by the standard routes.
-        options.app.use(`/${options.adminMountPoint}`, options.express.static(globalAssetsDir));
+        options.app.use(`/${adminMountPoint}`, options.express.static(globalAssetsDir));
 
-        options.app.use(`/${options.adminMountPoint}`, options.express.static(adminDistAssetsDir));
-        options.app.use(`/${options.adminMountPoint}`, options.express.static(adminSrcAssetsDir));
+        options.app.use(`/${adminMountPoint}`, options.express.static(adminDistAssetsDir));
+        options.app.use(`/${adminMountPoint}`, options.express.static(adminSrcAssetsDir));
 
         // @TODO loop through plugins. Do magic stuff.
-        options.app.use(`/${options.adminMountPoint}`, (req, res) => {
+        options.app.use(`/${adminMountPoint}`, (req, res) => {
             //res.sendFile(path.join(legacyAdminPublicDir, 'admin-dev', 'index.html'));
             res.render(template, {
-                adminMountPoint: `${options.adminMountPoint}/`,
+                adminMountPoint: `${adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
                 mode: options.mode
             });
