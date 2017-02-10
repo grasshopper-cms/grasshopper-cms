@@ -69,7 +69,6 @@ function startup(options) {
                     locals.curUser = reply;
                 })
                 .finally(function() {
-                    console.log('LOCALS', locals);
                     res.render(template, locals);
                 });
         });
