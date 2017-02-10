@@ -12,6 +12,16 @@
     margin: 0;
     padding: 0;
 }
+
+#plugin-sidebar a.logo {
+    position: relative;
+    display: block;
+    height: 50px;
+    width: 185px;
+    top: 12px;
+    margin-left: 5px;
+}
+
 #plugin-header{
     background-color: #1d354d;
     height:50px;
@@ -39,9 +49,10 @@
     top: -1px;
 }
 
-#plugin-header .auth-ctrls a {
+#plugin-header .auth-ctrls span {
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 7px;
+    margin-right: 7px;
 }
 
 #plugin-main {
@@ -50,4 +61,8 @@
     margin: 0;
     padding-left: 200px;
     display: inline;
+}
+
+.nav-side-menu {
+    overflow: hidden !important;
 }
