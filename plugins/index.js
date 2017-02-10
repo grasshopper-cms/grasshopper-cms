@@ -1,10 +1,14 @@
 'use strict';
 
+const cookieParser = require('cookie-parser');
+const loadRoutes = require('./loadRoutes');
+const BB = require('bluebird');
 const path = require('path');
+const atob = require('atob');
+
 const adminSrcAssetsDir = path.join(__dirname, 'admin', 'src', 'public');
 const adminDistAssetsDir = path.join(__dirname, 'admin', 'dist', 'public');
 const globalAssetsDir = path.join(__dirname, 'public');
-const loadRoutes = require('./loadRoutes');
 
 module.exports = startup;
 
@@ -25,6 +29,7 @@ function startup(options) {
         //set adminDir
         const adminMountPoint = typeof options.adminMountPoint !== 'undefined' ? options.adminMountPoint : 'admin';
         const template = require.resolve('./plugin.layout.pug');
+        options.app.use(cookieParser());
 
 
         //set engine
@@ -45,15 +50,29 @@ function startup(options) {
         options.app.use(`/${adminMountPoint}`, options.express.static(adminDistAssetsDir));
         options.app.use(`/${adminMountPoint}`, options.express.static(adminSrcAssetsDir));
 
-        // @TODO loop through plugins. Do magic stuff.
+        // @TODO turn the admin into a regular plugin and load it via loadRoutes as the first plugin
         options.app.use(`/${adminMountPoint}`, (req, res) => {
-            //res.sendFile(path.join(legacyAdminPublicDir, 'admin-dev', 'index.html'));
-            res.render(template, {
+
+            let locals = {
                 adminMountPoint: `${adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
-                mode: options.mode
-            });
+                mode: options.mode,
+                curUser: {}
+            };
+
+            let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
+
+            grasshopper.grasshopper.core.request(authToken)
+                .users
+                .current()
+                .then(function(reply) {
+                    locals.curUser = reply;
+                })
+                .finally(function() {
+                    res.render(template, locals);
+                });
         });
+
         return grasshopper;
     };
 }

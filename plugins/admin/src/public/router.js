@@ -274,7 +274,17 @@ define([
 
         function goLogout() {
             logoutWorker.doLogout.call(this)
-                .done(this.navigate.bind(this, constants.internalRoutes.login, {trigger : true}, true));
+                .done([this.navigate.bind(
+                    this,
+                    constants.internalRoutes.login,
+                    {trigger: true},
+                    true
+                ), function() {
+                    //clear out parts of the layout that require login
+                    $('.auth-ctrls').html('');
+                    $('.nav-side-menu .menu-list').html('');
+                }]
+            );
         }
 
         function displayLogin(token) {

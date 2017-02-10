@@ -21,22 +21,29 @@ html.no-js(lang='en')
                 .brand  
                 i.fa.fa-bars.fa-2x.toggle-btn(data-toggle='collapse', data-target='#menu-content')
                 .menu-list
-                    ul#menu-content.menu-content.collapse.out
-                        li
-                            a(href=`items`)
-                                i.fa.fa-table.fa-lg
-                                |  Content
-                        li
-                            a(href=`content-types`)
-                                i.fa.fa-tags.fa-lg
-                                |  Types
-                        li
-                            a(href=`users`)
-                                i.fa.fa-users.fa-lg
-                                |  Users
+                    if curUser && curUser._id
+                        ul#menu-content.menu-content.collapse.out
+                            li
+                                a(href='items')
+                                    i.fa.fa-table.fa-lg
+                                    |  Content
+                            li
+                                a(href='content-types')
+                                    i.fa.fa-tags.fa-lg
+                                    |  Types
+                            li
+                                a(href='users')
+                                    i.fa.fa-users.fa-lg
+                                    |  Users
         #plugin-main
             #plugin-header
-                a.brand(name='brandElement', href='/items')
+                a.brand(name='brandElement', href='items', style=`background: url('https://s3.amazonaws.com/SolidInteractive/images/grasshopper/grasshopper-admin-logo.png') no-repeat 0 0`)
+                if curUser && curUser._id
+                    .auth-ctrls
+                        | Welcome, #{curUser.displayName}
+                        a.logout(href="logout")
+                            | Logout
+
             #siteContainter
                 // Where the plugin gets loaded
                 #app

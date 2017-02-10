@@ -74,6 +74,8 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
                 this.model.clear();
                 this.app.router.navigateTrigger(constants.internalRoutes.logout);
             }
+
+            window.location.reload();
         }
 
         function _handleFailedAuthentication() {
