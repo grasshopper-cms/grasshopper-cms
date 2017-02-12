@@ -1,13 +1,12 @@
 'use strict';
 
 const api = require('grasshopper-api');
-const BB = require('bluebird');
 const plugins = require('./plugins');
+const BB = require('bluebird');
 
 module.exports = {
     authenticatedRequest: null,
     grasshopper: null,
-
     start : grasshopperService
 };
 
