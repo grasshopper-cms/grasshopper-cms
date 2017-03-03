@@ -78,7 +78,7 @@ define(['sparkmd5', 'constants'], function (sparkmd5, constants) {
 
     function gravatarUrl(email, args) {
         var md5value = email ? sparkmd5.hash(email.toLowerCase()) : '';
-        return 'http://www.gravatar.com/avatar/' + md5value + '?s=' + args + '&d=mm';
+        return 'https://www.gravatar.com/avatar/' + md5value + '?s=' + args + '&d=mm';
     }
 
     function stopImmediatePropagation(value) {
