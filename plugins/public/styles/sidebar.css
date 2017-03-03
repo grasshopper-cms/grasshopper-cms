@@ -24,19 +24,6 @@ ul, ol, dl {
     margin: 0px;
     line-height: 35px;
     cursor: pointer;
-    /*
-      .collapsed{
-         .arrow:before{
-                   font-family: FontAwesome;
-                   content: "\f053";
-                   display: inline-block;
-                   padding-left:10px;
-                   padding-right: 10px;
-                   vertical-align: middle;
-                   float:right;
-              }
-       }
-  */
 }
 .nav-side-menu ul :not(collapsed) .arrow:before,
 .nav-side-menu li :not(collapsed) .arrow:before {
@@ -90,6 +77,9 @@ ul, ol, dl {
 .nav-side-menu li a {
     text-decoration: none;
     color: #e1ffff;
+    display: block;
+    height: 100%;
+    width: 100%;
 }
 .nav-side-menu li a i {
     padding-left: 10px;

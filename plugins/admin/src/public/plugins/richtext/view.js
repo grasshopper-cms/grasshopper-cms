@@ -10,6 +10,7 @@ define(['pluginBaseView', 'underscore', 'jquery',
             afterRender : afterRender,
             remove : remove,
             sortStart : sortStart,
+            beforeSave : beforeSave,
             stopSort : stopSort
         })
             .extend(itemSelectModal);
@@ -26,6 +27,10 @@ define(['pluginBaseView', 'underscore', 'jquery',
                     );
             }
 
+        }
+
+        function beforeSave() {
+            _setContentValue.call(this);
         }
 
         function _prepareCkeditor() {

@@ -18,8 +18,8 @@ html.no-js(lang='en')
     body
         #plugin-sidebar
             .nav-side-menu
-                a.logo(name='brandElement', href='items', style=`background: url('https://s3.amazonaws.com/SolidInteractive/images/grasshopper/grasshopper-admin-logo-small.png') no-repeat 0 0`)
-                //i.fa.fa-bars.fa-2x.toggle-btn(data-toggle='collapse', data-target='#menu-content')
+                a.logo(name='brandElement', href='items')
+                    img(src='themes/img/logo.png')
                 .menu-list
                     if curUser && curUser._id
                         ul#menu-content.menu-content.collapse.out
@@ -39,12 +39,10 @@ html.no-js(lang='en')
             #plugin-header
                 if curUser && curUser._id
                     .auth-ctrls
-                        | Welcome &nbsp;
-                        a(href=`user/${curUser._id}`)
-                            | #{(curUser.displayName || curUser.displayname)}
+                        | Welcome,&nbsp;
+                        a(href=`user/${curUser._id}`)= curUser.displayName || curUser.displayname
                         span |
-                        a.logout(href="logout")
-                            | Logout
+                        a.logout(href="logout") Logout
 
             #siteContainter
                 // Where the plugin gets loaded
@@ -53,7 +51,7 @@ html.no-js(lang='en')
                     #masthead
                     #loading-overlay-header
                     #loading-overlay
-                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.f091d23f.gif')
+                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
                     #sidebar
                     #stage
                     #alertBox
