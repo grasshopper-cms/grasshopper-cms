@@ -31,6 +31,7 @@ function startup(options) {
         const template = require.resolve('./plugin.layout.pug');
         options.app.use(cookieParser());
 
+        options.app.use('/api', grasshopper.grasshopper.router);
 
         //set engine
         options.app.set('view engine', 'pug');

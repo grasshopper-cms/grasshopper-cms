@@ -4,6 +4,8 @@
 
 Requires Node 6+.
 
+Docs at http://docs.grasshopper.ws . The below is an excerpt from the docs:
+
 # Quick Start
 
 This is how to get started using Grasshopper.
@@ -32,9 +34,6 @@ grasshopper
         // Store the grasshopper object on the npm's module for convenience
         grasshopper.grasshopper = result.grasshopper;
         
-        // The admin needs the api - this will be automatically done in the future
-        app.use('/api', grasshopper.grasshopper.router);
-        
         console.log('listening on port 3000');
         app.listen(3000);
     })
@@ -46,7 +45,8 @@ grasshopper
 For an example config object see the [grasshopper-demo](https://github.com/grasshopper-cms/grasshopper-demo/blob/master/index.js#L9).
 
 In the example above, `app` is a standard express app. You can set it up as you normally would for a website or api. 
-You can inform your models with queries via `grasshopper.authenticatedRequest`, and you can view the admin at https://localhost:3000/admin .
+You can inform your models with queries via `grasshopper.authenticatedRequest`, the grasshopper api is running at `/api`,
+and you can view the admin at https://localhost:3000/admin .
 
 ## Queries
 
