@@ -28,13 +28,10 @@ grasshopper
         express,
         // Other configs here
     })
-    .then(result => {
+    .then(() => {
         
-        // Store the authenticated request on the npm's module for convenience
-        grasshopper.authenticatedRequest = result.authenticatedRequest;
-        
-        // Store the grasshopper object on the npm's module for convenience
-        grasshopper.grasshopper = result.grasshopper;
+        // grasshopper.authenticatedRequest is now available
+        // grasshopper.grasshopper is now available
         
         console.log('listening on port 3000');
         app.listen(3000);
