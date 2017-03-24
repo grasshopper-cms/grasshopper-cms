@@ -4,11 +4,13 @@ const api = require('grasshopper-api');
 const plugins = require('./plugins');
 const BB = require('bluebird');
 
-module.exports = {
+let result = {
     authenticatedRequest: null,
     grasshopper: null,
     start : grasshopperService
 };
+
+module.exports = result;
 
 /**
  * options.app The express app
@@ -35,10 +37,11 @@ function grasshopperService(options) {
                             username: options.admin.username, password: options.admin.password
                         })
                         .then(token => {
-                            resolve({
-                                authenticatedRequest: grasshopper.core.request(token),
-                                grasshopper: grasshopper
-                            });
+                            // Store these for convenience
+                            result.authenticatedRequest = grasshopper.core.request(token);
+                            result.grasshopper = grasshopper;
+
+                            resolve(result);
                             next();
                         })
                         .catch(reject);

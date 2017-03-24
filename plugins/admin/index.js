@@ -9,14 +9,14 @@ function loadAdmin(app, express, pluginDir, adminMountPoint) {
 
     const pluginName = 'commerce';
     app.get([
-        `/${adminMountPoint}/${pluginName}`,
-        `/${adminMountPoint}/${pluginName}/`,
-        `/${adminMountPoint}/${pluginName}/index.html`],
+        `${adminMountPoint}/${pluginName}`,
+        `${adminMountPoint}/${pluginName}/`,
+        `${adminMountPoint}/${pluginName}/index.html`],
         render(pluginName, adminMountPoint)
     );
 
-    app.use(`/${adminMountPoint}`, express.static(pluginDir));
-    app.use(`/${adminMountPoint}`, render(pluginName));
+    app.use(`${adminMountPoint}`, express.static(pluginDir));
+    app.use(`${adminMountPoint}`, render(pluginName));
 }
 
 function render(pluginName, adminMountPoint) {

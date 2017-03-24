@@ -8,7 +8,7 @@ html.no-js(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width')
         title Grasshopper Admin
-        base(href=`/${adminMountPoint}`)
+        base(href=`${adminMountPoint}`)
         link(rel='stylesheet' href=`styles/reset.css`)
         link(rel='stylesheet' href=`styles/styles.css`)
         link(rel='stylesheet' href=`styles/sidebar.css`)
@@ -58,11 +58,13 @@ html.no-js(lang='en')
                     #footer
                     #modal
 
+        - console.log('ghaconfigs', ghaConfigs);
         script.
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
+            window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
 
         if mode === 'develop'
-            script(src=`/${adminMountPoint}${pluginName}vendor/requirejs/require.js`)
-            script(data-main="main" src=`/${adminMountPoint}${pluginName}main.js`)
+            script(src=`${adminMountPoint}${pluginName}vendor/requirejs/require.js`)
+            script(data-main="main" src=`${adminMountPoint}${pluginName}main.js`)
         else
-            script(data-main="main" src=`/${adminMountPoint}${pluginName}main.min.js`)
+            script(data-main="main" src=`${adminMountPoint}${pluginName}main.min.js`)

@@ -3,7 +3,7 @@ define([], function() {
     'use strict';
 
     var ghaConfigs = window.ghaConfigs || {},
-        apiEndpoint = ghaConfigs.apiEndpoint || '/api',
+        apiEndpoint = ghaConfigs.apiEndpoint,
         version = '0.40.2',
         libraryVersions = '[{"name":"ScrollToFixed","version":"1.0.8"},{"name":"SparkMD5","version":"3.0.0"},{"name":"ace","version":"1.1.3"},{"name":"ckeditor","version":"4.3.5"},{"name":"comma-separated-values","version":"3.6.4"},{"name":"datetimepicker","version":"2.3.9"},{"name":"font-awesome","version":"4.1.0"},{"name":"foundation","version":"5.5.2"},{"name":"jquery.ui","version":"1.10.4"},{"name":"js-base64","version":"2.1.2"},{"name":"jsoneditor","version":"3.1.2"},{"name":"masseuse","version":"2.3.0"},{"name":"modernizr","version":"2.8.3"},{"name":"moment-timezone","version":"0.4.0"},{"name":"moment","version":"2.10.6"},{"name":"mousetrap","version":"1.4.6"},{"name":"multiple-select"},{"name":"requirejs-text","version":"2.0.10"},{"name":"select2","version":"3.5.4"},{"name":"underscore.deep"},{"name":"velocity"}]',
         typeSlugification = ghaConfigs.typeSlugification || 'camelCase',

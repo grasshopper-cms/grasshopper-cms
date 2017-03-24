@@ -19,6 +19,9 @@ module.exports = startup;
  */
 function startup(options) {
 
+    options.adminMountPoint = options.adminMountPoint || '/admin';
+    options.apiMountPoint = options.apiMountPoint || '/api';
+
     /**
      * grasshopper.authenticatedRequest
      * grasshopper.grasshopper
@@ -27,11 +30,10 @@ function startup(options) {
     return grasshopper => {
 
         //set adminDir
-        const adminMountPoint = typeof options.adminMountPoint !== 'undefined' ? options.adminMountPoint : 'admin';
         const template = require.resolve('./plugin.layout.pug');
         options.app.use(cookieParser());
 
-        options.app.use('/api', grasshopper.grasshopper.router);
+        options.app.use(options.apiMountPoint, grasshopper.grasshopper.router);
 
         //set engine
         options.app.set('view engine', 'pug');
@@ -41,25 +43,30 @@ function startup(options) {
             app : options.app,
             express : options.express,
             grasshopperService : grasshopper,
-            mountPath: '/api',
+            mountPath: options.apiMountPoint,
             plugins : options.plugins,
-            adminMountPoint: adminMountPoint
+            adminMountPoint: options.adminMountPoint
         });
         // Then load legacy routes. These will be shadowed by the standard routes.
-        options.app.use(`/${adminMountPoint}`, options.express.static(globalAssetsDir));
+        options.app.use(options.adminMountPoint, options.express.static(globalAssetsDir));
 
-        options.app.use(`/${adminMountPoint}`, options.express.static(adminDistAssetsDir));
-        options.app.use(`/${adminMountPoint}`, options.express.static(adminSrcAssetsDir));
+        options.app.use(options.adminMountPoint, options.express.static(adminDistAssetsDir));
+        options.app.use(options.adminMountPoint, options.express.static(adminSrcAssetsDir));
 
         // @TODO turn the admin into a regular plugin and load it via loadRoutes as the first plugin
-        options.app.use(`/${adminMountPoint}`, (req, res) => {
+        options.app.use(options.adminMountPoint, (req, res) => {
 
             let locals = {
-                adminMountPoint: `${adminMountPoint}/`,
+                adminMountPoint: `${options.adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
                 mode: options.mode,
+                ghaConfigs : {
+                    apiEndpoint : options.apiMountPoint
+                },
                 curUser: {}
             };
+
+            console.log('locals', locals.ghaConfigs);
 
             let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
 
@@ -70,6 +77,7 @@ function startup(options) {
                     locals.curUser = reply;
                 })
                 .finally(function() {
+                    // Render the legacy admin
                     res.render(template, locals);
                 });
         });

@@ -24,7 +24,8 @@ module.exports = (req, res, next) => {
         })
         .catch(err => {
             console.log('error', err);
-            let adminBase = req.adminMountPoint ? req.adminMountPoint : 'admin';
-            res.redirect(`/${adminBase}/login`);
+            // Where is req.adminMountPoint coming from?
+            let adminBase = req.adminMountPoint ? req.adminMountPoint : '/admin';
+            res.redirect(`${adminBase}/login`);
         })
 };

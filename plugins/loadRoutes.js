@@ -7,7 +7,7 @@ const loadAdmin = require('./admin');
 module.exports = loadRoutes;
 
 function loadRoutes(options) {
-    let app, express, mountPath, grasshopperService, stacks, adminMountPoint = {};
+    let app, express, mountPath, grasshopperService, stacks, adminMountPoint;
 
     if (!options) {
         throw new Error('No options object supplied.');
