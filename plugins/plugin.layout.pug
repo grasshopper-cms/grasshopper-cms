@@ -8,33 +8,39 @@ html.no-js(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width')
         title Grasshopper Admin
-        base(href=`${adminMountPoint}`)
-        link(rel='stylesheet' href=`styles/reset.css`)
-        link(rel='stylesheet' href=`styles/styles.css`)
-        link(rel='stylesheet' href=`styles/sidebar.css`)
-        link(rel='stylesheet' href=`themes/main.css`)
+        base(href=adminMountPoint)
+        link(rel='stylesheet' href=adminMountPoint + '/styles/reset.css')
+        link(rel='stylesheet' href=adminMountPoint + '/styles/styles.css')
+        link(rel='stylesheet' href=adminMountPoint + '/styles/sidebar.css')
+        link(rel='stylesheet' href=adminMountPoint + '/themes/main.css')
 
-        link(rel='stylesheet' href=`${pluginName}styles/main.css`)
+        if isPlugin
+            link(rel='stylesheet' href=adminMountPoint + '/' + pluginName + '/styles/main.css')
     body
         #plugin-sidebar
             .nav-side-menu
                 a.logo(name='brandElement', href='items')
-                    img(src='themes/img/logo.png')
+                    img(src=adminMountPoint + '/themes/img/logo.png')
                 .menu-list
                     if curUser && curUser._id
                         ul#menu-content.menu-content.collapse.out
                             li
-                                a(href='items')
+                                a(href=adminMountPoint + '/items')
                                     i.fa.fa-table.fa-lg
                                     |  Content
                             li
-                                a(href='content-types')
+                                a(href=adminMountPoint + '/content-types')
                                     i.fa.fa-tags.fa-lg
                                     |  Types
                             li
-                                a(href='users')
+                                a(href=adminMountPoint + '/users')
                                     i.fa.fa-users.fa-lg
                                     |  Users
+                            for plugin in plugins
+                                li
+                                    a(href=plugin.name onclick="window.location.href='" + plugin.name + "'")
+                                        i.fa.fa-lg(class=plugin.icon)
+                                        | #{plugin.label}
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
@@ -51,20 +57,21 @@ html.no-js(lang='en')
                     #masthead
                     #loading-overlay-header
                     #loading-overlay
-                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
+                        img.loading-overlay-image(src=adminMountPoint + '/themes/img/loading-spinner-horizontal.gif')
                     #sidebar
                     #stage
                     #alertBox
                     #footer
                     #modal
 
-        - console.log('ghaconfigs', ghaConfigs);
         script.
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
             window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
 
-        if mode === 'develop'
-            script(src=`${adminMountPoint}${pluginName}vendor/requirejs/require.js`)
-            script(data-main="main" src=`${adminMountPoint}${pluginName}main.js`)
-        else
-            script(data-main="main" src=`${adminMountPoint}${pluginName}main.min.js`)
+        if mode === 'develop' && isPlugin
+            script(src=adminMountPoint + '/vendor/requirejs/require.js')
+            script(data-main="main" src=adminMountPoint + '/main.js')
+        else if !isPlugin
+            script(data-main="main" src=adminMountPoint + '/' + 'main.min.js')
+        else if isPlugin
+            script(data-main="main" src=adminMountPoint + '/' + pluginName + '/scripts/main.js')
