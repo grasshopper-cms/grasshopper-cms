@@ -23,7 +23,7 @@ function render(plugins, pluginName, grasshopper, adminMountPoint, apiMountPoint
         res.locals = {
             pluginName: pluginName,
             plugins: plugins,
-            adminMountPoint: adminMountPoint,
+            adminMountPoint: adminMountPoint + '/',
             ghaConfigs: {
                 apiEndpoint: apiMountPoint
             },

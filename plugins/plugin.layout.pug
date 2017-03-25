@@ -9,36 +9,36 @@ html.no-js(lang='en')
         meta(name='viewport', content='width=device-width')
         title Grasshopper Admin
         base(href=adminMountPoint)
-        link(rel='stylesheet' href=adminMountPoint + '/styles/reset.css')
-        link(rel='stylesheet' href=adminMountPoint + '/styles/styles.css')
-        link(rel='stylesheet' href=adminMountPoint + '/styles/sidebar.css')
-        link(rel='stylesheet' href=adminMountPoint + '/themes/main.css')
+        link(rel='stylesheet' href='styles/reset.css')
+        link(rel='stylesheet' href='styles/styles.css')
+        link(rel='stylesheet' href='styles/sidebar.css')
+        link(rel='stylesheet' href='themes/main.css')
 
         if isPlugin
-            link(rel='stylesheet' href=adminMountPoint + '/' + pluginName + '/styles/main.css')
+            link(rel='stylesheet' href=pluginName + '/styles/main.css')
     body
         #plugin-sidebar
             .nav-side-menu
                 a.logo(name='brandElement', href='items')
-                    img(src=adminMountPoint + '/themes/img/logo.png')
+                    img(src='themes/img/logo.png')
                 .menu-list
                     if curUser && curUser._id
                         ul#menu-content.menu-content.collapse.out
                             li
-                                a(href=adminMountPoint + '/items')
+                                a(href='items')
                                     i.fa.fa-table.fa-lg
                                     |  Content
                             li
-                                a(href=adminMountPoint + '/content-types')
+                                a(href='content-types')
                                     i.fa.fa-tags.fa-lg
                                     |  Types
                             li
-                                a(href=adminMountPoint + '/users')
+                                a(href='users')
                                     i.fa.fa-users.fa-lg
                                     |  Users
                             for plugin in plugins
                                 li
-                                    a(href=plugin.name onclick="window.location.href='" + plugin.name + "'")
+                                    a(href=adminMountPoint + plugin.name onclick="window.location.href='" + adminMountPoint + plugin.name + "'")
                                         i.fa.fa-lg(class=plugin.icon)
                                         | #{plugin.label}
         #plugin-main
@@ -57,7 +57,7 @@ html.no-js(lang='en')
                     #masthead
                     #loading-overlay-header
                     #loading-overlay
-                        img.loading-overlay-image(src=adminMountPoint + '/themes/img/loading-spinner-horizontal.gif')
+                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
                     #sidebar
                     #stage
                     #alertBox
@@ -70,8 +70,8 @@ html.no-js(lang='en')
 
         if mode === 'develop' && isPlugin
             script(src=adminMountPoint + '/vendor/requirejs/require.js')
-            script(data-main="main" src=adminMountPoint + '/main.js')
+            script(data-main="main" src='/main.js')
         else if !isPlugin
-            script(data-main="main" src=adminMountPoint + '/' + 'main.min.js')
+            script(data-main="main" src='main.min.js')
         else if isPlugin
-            script(data-main="main" src=adminMountPoint + '/' + pluginName + '/scripts/main.js')
+            script(data-main="main" src=pluginName + '/scripts/main.js')
