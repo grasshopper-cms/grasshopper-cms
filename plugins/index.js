@@ -43,7 +43,7 @@ function startup(options) {
             express : options.express,
             grasshopperService : grasshopper,
             mountPath: options.grasshopper.apiMountPoint,
-            plugins : options.grasshopper.plugins,
+            plugins : options.grasshopper.plugins || [],
             adminMountPoint: options.grasshopper.adminMountPoint
         });
         // Then load legacy routes. These will be shadowed by the standard routes.
@@ -58,7 +58,7 @@ function startup(options) {
             let locals = {
                 adminMountPoint: `${options.grasshopper.adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
-                plugins: options.grasshopper.plugins,
+                plugins: options.grasshopper.plugins || [],
                 mode: options.mode,
                 ghaConfigs : {
                     apiEndpoint : options.grasshopper.apiMountPoint
