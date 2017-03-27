@@ -74,12 +74,19 @@ ul, ol, dl {
     border-left: 3px solid #2e353d;
     border-bottom: 1px solid #23282e;
 }
+
+.nav-side-menu li:first-child {
+    margin-top: 19px;
+}
+
 .nav-side-menu li a {
     text-decoration: none;
     color: #e1ffff;
     display: block;
     height: 100%;
     width: 100%;
+    font-size: 14px;
+    font-weight: normal;
 }
 .nav-side-menu li a i {
     padding-left: 10px;

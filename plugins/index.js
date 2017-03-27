@@ -18,9 +18,8 @@ module.exports = startup;
  * @returns {function(*=)}
  */
 function startup(options) {
-
-    options.adminMountPoint = options.adminMountPoint || '/admin';
-    options.apiMountPoint = options.apiMountPoint || '/api';
+    options.grasshopper.adminMountPoint = options.grasshopper.adminMountPoint || '/admin';
+    options.grasshopper.apiMountPoint = options.grasshopper.apiMountPoint || '/api';
 
     /**
      * grasshopper.authenticatedRequest
@@ -33,7 +32,7 @@ function startup(options) {
         const template = require.resolve('./plugin.layout.pug');
         options.app.use(cookieParser());
 
-        options.app.use(options.apiMountPoint, grasshopper.grasshopper.router);
+        options.app.use(options.grasshopper.apiMountPoint, grasshopper.grasshopper.router);
 
         //set engine
         options.app.set('view engine', 'pug');
@@ -43,30 +42,30 @@ function startup(options) {
             app : options.app,
             express : options.express,
             grasshopperService : grasshopper,
-            mountPath: options.apiMountPoint,
-            plugins : options.plugins,
-            adminMountPoint: options.adminMountPoint
+            mountPath: options.grasshopper.apiMountPoint,
+            plugins : options.grasshopper.plugins || [],
+            adminMountPoint: options.grasshopper.adminMountPoint
         });
         // Then load legacy routes. These will be shadowed by the standard routes.
-        options.app.use(options.adminMountPoint, options.express.static(globalAssetsDir));
+        options.app.use(options.grasshopper.adminMountPoint, options.express.static(globalAssetsDir));
 
-        options.app.use(options.adminMountPoint, options.express.static(adminDistAssetsDir));
-        options.app.use(options.adminMountPoint, options.express.static(adminSrcAssetsDir));
+        options.app.use(options.grasshopper.adminMountPoint, options.express.static(adminDistAssetsDir));
+        options.app.use(options.grasshopper.adminMountPoint, options.express.static(adminSrcAssetsDir));
 
         // @TODO turn the admin into a regular plugin and load it via loadRoutes as the first plugin
-        options.app.use(options.adminMountPoint, (req, res) => {
+        options.app.use(options.grasshopper.adminMountPoint, (req, res) => {
 
             let locals = {
-                adminMountPoint: `${options.adminMountPoint}/`,
+                isLegacyAdmin : true,
+                adminMountPoint: `${options.grasshopper.adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
+                plugins: options.grasshopper.plugins || [],
                 mode: options.mode,
                 ghaConfigs : {
-                    apiEndpoint : options.apiMountPoint
+                    apiEndpoint : options.grasshopper.apiMountPoint
                 },
                 curUser: {}
             };
-
-            console.log('locals', locals.ghaConfigs);
 
             let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
 

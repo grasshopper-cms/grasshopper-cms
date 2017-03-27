@@ -8,13 +8,14 @@ html.no-js(lang='en')
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width')
         title Grasshopper Admin
-        base(href=`${adminMountPoint}`)
-        link(rel='stylesheet' href=`styles/reset.css`)
-        link(rel='stylesheet' href=`styles/styles.css`)
-        link(rel='stylesheet' href=`styles/sidebar.css`)
-        link(rel='stylesheet' href=`themes/main.css`)
+        base(href=adminMountPoint)
+        link(rel='stylesheet' href='styles/reset.css')
+        link(rel='stylesheet' href='styles/styles.css')
+        link(rel='stylesheet' href='styles/sidebar.css')
+        link(rel='stylesheet' href='themes/main.css')
 
-        link(rel='stylesheet' href=`${pluginName}styles/main.css`)
+        if isPlugin
+            link(rel='stylesheet' href=pluginName + '/styles/main.css')
     body
         #plugin-sidebar
             .nav-side-menu
@@ -35,6 +36,11 @@ html.no-js(lang='en')
                                 a(href='users')
                                     i.fa.fa-users.fa-lg
                                     |  Users
+                            for plugin in plugins
+                                li
+                                    a(href=adminMountPoint + plugin.name onclick="window.location.href='" + adminMountPoint + plugin.name + "'")
+                                        i.fa.fa-lg(class=plugin.icon)
+                                        | #{plugin.label}
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
@@ -58,13 +64,14 @@ html.no-js(lang='en')
                     #footer
                     #modal
 
-        - console.log('ghaconfigs', ghaConfigs);
         script.
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
             window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
 
-        if mode === 'develop'
-            script(src=`${adminMountPoint}${pluginName}vendor/requirejs/require.js`)
-            script(data-main="main" src=`${adminMountPoint}${pluginName}main.js`)
-        else
-            script(data-main="main" src=`${adminMountPoint}${pluginName}main.min.js`)
+        if mode === 'develop' && isLegacyAdmin
+            script(src=adminMountPoint + '/vendor/requirejs/require.js')
+            script(data-main="main" src=adminMountPoint + '/main.js')
+        else if isLegacyAdmin
+            script(data-main="main" src='main.min.js')
+        else if isPlugin
+            script(data-main="main" src=pluginName + '/scripts/main.js')
