@@ -41,6 +41,7 @@ function grasshopperService(options) {
                             result.authenticatedRequest = grasshopper.core.request(token);
                             result.grasshopper = grasshopper;
 
+                            // plugins curry ends up getting called with "result"
                             resolve(result);
                             next();
                         })
