@@ -56,6 +56,7 @@ function startup(options) {
         options.app.use(options.grasshopper.adminMountPoint, (req, res) => {
 
             let locals = {
+                isLegacyAdmin : true,
                 adminMountPoint: `${options.grasshopper.adminMountPoint}/`,
                 pluginName: options.pluginName ?  `${options.pluginName}/` : '',
                 plugins: options.grasshopper.plugins || [],

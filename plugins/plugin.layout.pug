@@ -68,10 +68,10 @@ html.no-js(lang='en')
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
             window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
 
-        if mode === 'develop' && isPlugin
+        if mode === 'develop' && isLegacyAdmin
             script(src=adminMountPoint + '/vendor/requirejs/require.js')
-            script(data-main="main" src='/main.js')
-        else if !isPlugin
+            script(data-main="main" src=adminMountPoint + '/main.js')
+        else if isLegacyAdmin
             script(data-main="main" src='main.min.js')
         else if isPlugin
             script(data-main="main" src=pluginName + '/scripts/main.js')
