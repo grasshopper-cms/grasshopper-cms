@@ -14,8 +14,8 @@ html.no-js(lang='en')
         link(rel='stylesheet' href='styles/sidebar.css')
         link(rel='stylesheet' href='themes/main.css')
 
-        if isPlugin
-            link(rel='stylesheet' href=pluginName + '/styles/main.css')
+        if !isLegacyAdmin
+            link(rel='stylesheet' href=`${pluginName}/styles/main.css`)
     body
         #plugin-sidebar
             .nav-side-menu
@@ -37,16 +37,17 @@ html.no-js(lang='en')
                                     i.fa.fa-users.fa-lg
                                     |  Users
                             for plugin in plugins
-                                li
-                                    a(href=adminMountPoint + plugin.name onclick="window.location.href='" + adminMountPoint + plugin.name + "'")
-                                        i.fa.fa-lg(class=plugin.icon)
-                                        | #{plugin.label}
+                                if plugin.label
+                                    li
+                                        a(href=plugin.name data-bypass)
+                                            i.fa.fa-lg(class=plugin.icon)
+                                            | #{plugin.label}
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
                     .auth-ctrls
                         | Welcome,&nbsp;
-                        a(href=`user/${curUser._id}`)= curUser.displayName || curUser.displayname
+                        a(href=`user/${curUser._id}`)= curUser.displayName
                         span |
                         a.logout(href="logout") Logout
 
@@ -68,10 +69,11 @@ html.no-js(lang='en')
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
             window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
 
-        if mode === 'develop' && isPlugin
-            script(src=adminMountPoint + '/vendor/requirejs/require.js')
-            script(data-main="main" src='/main.js')
-        else if !isPlugin
-            script(data-main="main" src='main.min.js')
-        else if isPlugin
-            script(data-main="main" src=pluginName + '/scripts/main.js')
+        if isLegacyAdmin
+            if mode === 'develop'
+                script(src='vendor/requirejs/require.js')
+                script(data-main="main" src='main.js')
+            else
+                script(data-main="main" src='main.min.js')
+        else
+            script(data-main="main" src=`${pluginName}/scripts/main.js`)

@@ -6,34 +6,38 @@ const url = require('url');
 
 module.exports = loadAdmin;
 
-function loadAdmin(app, express, grasshopper, plugins, plugin, adminMountPoint, apiMountPoint) {
+function loadAdmin(plugin, options, grasshopperCms) {
+    const adminMountPoint = options.grasshopper.adminMountPoint;
+    const app = options.app;
+
     app.get([
         `${adminMountPoint}/${plugin.name}`,
         `${adminMountPoint}/${plugin.name}/`,
         `${adminMountPoint}/${plugin.name}/index.html`],
-        render(plugins, plugin.name, grasshopper, adminMountPoint, apiMountPoint)
+        render(plugin, options, grasshopperCms)
     );
 
-    app.use(`${adminMountPoint}`, express.static(path.join(__dirname, 'dist/public')));
-    app.use(`${adminMountPoint}/${plugin.name}`, express.static(path.join(plugin.dir, 'app','public')));
+    app.use(`${adminMountPoint}/${plugin.name}`, options.express.static(path.join(plugin.dir, 'public')));
 }
 
-function render(plugins, pluginName, grasshopper, adminMountPoint, apiMountPoint) {
+function render(plugin, options, grasshopperCms) {
+    const adminMountPoint = options.grasshopper.adminMountPoint;
     return (req, res) => {
         res.locals = {
-            pluginName: pluginName,
-            plugins: plugins,
+            isLegacyAdmin : false,
             adminMountPoint: adminMountPoint + '/',
+            pluginName: plugin.name,
+            // all plugins need to be send in for each plugin due to the sidebar
+            plugins: options.grasshopper.plugins,
             ghaConfigs: {
-                apiEndpoint: apiMountPoint
+                apiEndpoint: options.grasshopper.apiMountPoint
             },
-            isPlugin: (url.parse(req.url).pathname.indexOf(pluginName) > -1) ? true : false,
             curUser: {}
         };
 
         let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
 
-        grasshopper.grasshopper.core.request(authToken)
+        grasshopperCms.grasshopper.core.request(authToken)
             .users
             .current()
             .then(function(reply) {
