@@ -28,25 +28,36 @@ function grasshopperService(options) {
     // grasshopper.core
     // grasshopper.bridgetown
 
-    return new BB((resolve, reject) => {
-            grasshopper
-                .core.event.channel('/system/db')
-                .on('start', (payload, next) => {
-                    grasshopper
-                        .core.auth('basic', {
-                            username: options.admin.username, password: options.admin.password
-                        })
-                        .then(token => {
-                            // Store these for convenience
-                            result.authenticatedRequest = grasshopper.core.request(token);
-                            result.grasshopper = grasshopper;
+    return BB.bind({service: {}})
+        .then(() => {
+            return new BB((resolve, reject) => {
+                grasshopper
+                    .core.event.channel('/system/db')
+                    .on('start', (payload, next) => {
+                        grasshopper
+                            .core.auth('basic', {
+                                username: options.admin.username, password: options.admin.password
+                            })
+                            .then(token => {
+                                // Store these for convenience
+                                result.authenticatedRequest = grasshopper.core.request(token);
+                                result.grasshopper = grasshopper;
 
-                            // plugins curry ends up getting called with "result"
-                            resolve(result);
-                            next();
-                        })
-                        .catch(reject);
+                                // plugins curry ends up getting called with "result"
+                                resolve(result);
+                                next();
+                            })
+                            .catch(reject);
+                    });
                 });
         })
-        .then(plugins(options));
+        .then((grasshopperService) => {
+            this.service = grasshopperService;
+
+            return this.service;
+        })
+        .then(plugins(options))
+        .then(() => {
+            return this.service;
+        });
 }
