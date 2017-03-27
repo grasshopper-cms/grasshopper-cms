@@ -38,7 +38,7 @@ function startup(options) {
         options.app.set('view engine', 'pug');
 
         // First load routes via the standard plugin system
-        BB.try(() => loadRoutes(options, grasshopperCms))
+        return BB.try(() => loadRoutes(options, grasshopperCms))
             .then(() => {
                 // Then load legacy routes. These will be shadowed by the standard routes due to the order of loading
                 options.app.use(options.grasshopper.adminMountPoint, options.express.static(globalAssetsDir));
