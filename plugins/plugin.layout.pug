@@ -37,10 +37,11 @@ html.no-js(lang='en')
                                     i.fa.fa-users.fa-lg
                                     |  Users
                             for plugin in plugins
-                                li
-                                    a(href=plugin.name data-bypass)
-                                        i.fa.fa-lg(class=plugin.icon)
-                                        | #{plugin.label}
+                                if plugin.label
+                                    li
+                                        a(href=plugin.name data-bypass)
+                                            i.fa.fa-lg(class=plugin.icon)
+                                            | #{plugin.label}
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
