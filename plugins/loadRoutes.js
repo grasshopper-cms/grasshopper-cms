@@ -33,7 +33,6 @@ function loadRoutes(options) {
     plugins.forEach(plugin => {
         plugin.dir = (plugin.path) ? plugin.path : path.resolve('node_modules',`${plugin.name}`);
         console.log(`installing and building ${plugin.name}`);
-        console.log(plugin.dir);
 
         loadAdmin(app, express, grasshopperService, plugins, plugin, adminMountPoint, mountPath);
 
