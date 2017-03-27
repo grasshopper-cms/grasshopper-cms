@@ -5,6 +5,7 @@ const loadRoutes = require('./loadRoutes');
 const BB = require('bluebird');
 const path = require('path');
 const atob = require('atob');
+const opts = require('./options');
 
 const adminSrcAssetsDir = path.join(__dirname, 'admin', 'src', 'public');
 const adminDistAssetsDir = path.join(__dirname, 'admin', 'dist', 'public');
@@ -46,6 +47,7 @@ function startup(options) {
             plugins : options.grasshopper.plugins || [],
             adminMountPoint: options.grasshopper.adminMountPoint
         });
+
         // Then load legacy routes. These will be shadowed by the standard routes.
         options.app.use(options.grasshopper.adminMountPoint, options.express.static(globalAssetsDir));
 
@@ -79,6 +81,8 @@ function startup(options) {
                     res.render(template, locals);
                 });
         });
+
+        opts.set(options);
 
         return grasshopper;
     };

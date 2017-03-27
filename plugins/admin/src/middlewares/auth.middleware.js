@@ -2,6 +2,7 @@
 
 const ghCore = require('grasshopper-core');
 const atob = require('atob');
+const options = require('../../../../plugins/options');
 
 module.exports = (req, res, next) => {
 
@@ -23,9 +24,9 @@ module.exports = (req, res, next) => {
             next();
         })
         .catch(err => {
-            console.log('error', err);
-            // Where is req.adminMountPoint coming from?
-            let adminBase = req.adminMountPoint ? req.adminMountPoint : '/admin';
+            let adminMountPoint = options.get().grasshopper.adminMountPoint; // Set on startup
+            let adminBase = adminMountPoint || '/admin';
+
             res.redirect(`${adminBase}/login`);
         })
 };
