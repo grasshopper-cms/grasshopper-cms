@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const BB = require('bluebird');
 const cookieParser = require('cookie-parser');
 const loadRoutes = require('./loadRoutes');
@@ -22,8 +23,10 @@ function startup(options) {
     options.grasshopper.adminMountPoint = options.grasshopper.adminMountPoint || '/admin';
     options.grasshopper.apiMountPoint = options.grasshopper.apiMountPoint || '/api';
     options.grasshopper.plugins = options.grasshopper.plugins || [];
-    opts.set(options);
-    
+
+    // Mutate, do not replace, opts object
+    _.assign(opts, options);
+
     /**
      * grasshopper.authenticatedRequest
      * grasshopper.grasshopper

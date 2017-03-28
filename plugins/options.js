@@ -1,13 +1,10 @@
 'use strict';
 
-let options = {};
-
-/** Module to store the passed in options */
+/**
+ * Module to store the passed in options
+ * Useful for middlewares
+ */
 module.exports = {
-    set: function (opts) {
-        options = opts;
-    },
-    get: function() {
-        return options;
-    }
+    authenticatedRequest: null,
+    grasshopper : null
 };
