@@ -51,13 +51,5 @@ function grasshopperService(options) {
                     });
                 });
         })
-        .then((grasshopperService) => {
-            this.service = grasshopperService;
-
-            return this.service;
-        })
-        .then(plugins(options))
-        .then(() => {
-            return this.service;
-        });
+        .then(plugins(options));
 }
