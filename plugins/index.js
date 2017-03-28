@@ -1,10 +1,12 @@
 'use strict';
 
+const _ = require('lodash');
 const BB = require('bluebird');
 const cookieParser = require('cookie-parser');
 const loadRoutes = require('./loadRoutes');
 const path = require('path');
 const atob = require('atob');
+const opts = require('./options');
 
 const adminSrcAssetsDir = path.join(__dirname, 'admin', 'src', 'public');
 const adminDistAssetsDir = path.join(__dirname, 'admin', 'dist', 'public');
@@ -21,6 +23,10 @@ function startup(options) {
     options.grasshopper.adminMountPoint = options.grasshopper.adminMountPoint || '/admin';
     options.grasshopper.apiMountPoint = options.grasshopper.apiMountPoint || '/api';
     options.grasshopper.plugins = options.grasshopper.plugins || [];
+
+    // Mutate, do not replace, opts object
+    _.assign(opts, options);
+
     /**
      * grasshopper.authenticatedRequest
      * grasshopper.grasshopper

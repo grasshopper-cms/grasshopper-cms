@@ -13,7 +13,6 @@ function loadRoutes(options, grasshopperCms) {
         plugin.dir = plugin.path;
 
         console.log(`installing and building plugin: ${plugin.name}`);
-        console.log(plugin.dir);
 
         loadAdmin(plugin, options, grasshopperCms);
 
