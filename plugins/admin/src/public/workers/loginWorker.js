@@ -55,7 +55,8 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
         }
 
         function _handleSuccessfulAuthentication(userModel) {
-            var redirect = LocalStorage.get(constants.loginRedirectKey);
+            // url param gets precedence, since it is more visible
+            var redirect = getURLParameter('redirect') || LocalStorage.get(constants.loginRedirectKey);
 
             if(userModel.role !== 'external') {
 
@@ -63,19 +64,16 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
 
                 if (redirect && redirect !== undefined) {
                     LocalStorage.remove(constants.loginRedirectKey)
-                        .done(this.app.router.navigateTrigger.bind(this.app.router, redirect));
+                        .done(function() {
+                            window.location = redirect;
+                        });
                 } else {
-                    this.app.router.navigateTrigger(constants.internalRoutes.content);
+                    window.location.reload();
                 }
-
-                this.model.clear();
-                this.model.set('hideLoginForm',true);
             } else {
                 this.model.clear();
                 this.app.router.navigateTrigger(constants.internalRoutes.logout);
             }
-
-            window.location.reload();
         }
 
         function _handleFailedAuthentication() {
@@ -128,6 +126,11 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
                     $deferred.reject();
                     self.goLogout();
                 });
+        }
+
+        // http://stackoverflow.com/a/11582513/186636
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
         }
 
     });

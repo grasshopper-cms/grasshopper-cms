@@ -25,6 +25,6 @@ module.exports = (req, res, next) => {
         })
         .catch(err => {
             const adminMountPoint = options.grasshopper.adminMountPoint; // Set on startup
-            res.redirect(`${adminMountPoint}/login`);
+            res.redirect(res.loginRedirect || `${adminMountPoint}/login`);
         })
 };
