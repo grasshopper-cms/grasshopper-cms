@@ -68,7 +68,7 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
                             window.location = redirect;
                         });
                 } else {
-                    window.location.reload();
+                    window.location = window.adminMountPoint;
                 }
             } else {
                 this.model.clear();
