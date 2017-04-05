@@ -1,0 +1,79 @@
+doctype html
+//if IE 8
+  html.no-js.lt-ie9(lang='en')
+// [if gt IE 8] <!
+html.no-js(lang='en')
+    // <![endif]
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width')
+        title Grasshopper Admin
+        base(href=adminMountPoint)
+        link(rel='stylesheet' href='styles/reset.css')
+        link(rel='stylesheet' href='styles/styles.css')
+        link(rel='stylesheet' href='styles/sidebar.css')
+        link(rel='stylesheet' href='themes/main.css')
+
+        if !isLegacyAdmin
+            link(rel='stylesheet' href=`${pluginName}/styles/main.css`)
+    body
+        #plugin-sidebar
+            .nav-side-menu
+                a.logo(name='brandElement', href='items')
+                    img(src='themes/img/logo.png')
+                .menu-list
+                    if curUser && curUser._id
+                        ul#menu-content.menu-content.collapse.out
+                            li
+                                a(href='items')
+                                    i.fa.fa-table.fa-lg
+                                    |  Content
+                            li
+                                a(href='content-types')
+                                    i.fa.fa-tags.fa-lg
+                                    |  Types
+                            li
+                                a(href='users')
+                                    i.fa.fa-users.fa-lg
+                                    |  Users
+                            for plugin in plugins
+                                if plugin.label
+                                    li
+                                        a(href=plugin.name data-bypass)
+                                            i.fa.fa-lg(class=plugin.icon)
+                                            | #{plugin.label}
+        #plugin-main
+            #plugin-header
+                if curUser && curUser._id
+                    .auth-ctrls
+                        | Welcome,&nbsp;
+                        a(href=`user/${curUser._id}`)= curUser.displayName
+                        span |
+                        a.logout(href="logout") Logout
+
+            #siteContainter
+                // Where the plugin gets loaded
+                #app
+                    #header
+                    #masthead
+                    #loading-overlay-header
+                    #loading-overlay
+                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
+                    #sidebar
+                    #stage
+                    #alertBox
+                    #footer
+                    #modal
+
+        script.
+            window.adminMountPoint = !{JSON.stringify(adminMountPoint)};
+            window.ghaConfigs = !{JSON.stringify(ghaConfigs)};
+
+        if isLegacyAdmin
+            if mode === 'develop'
+                script(src='vendor/requirejs/require.js')
+                script(data-main="main" src='main.js')
+            else
+                script(data-main="main" src='main.min.js')
+        else
+            script(data-main="main" src=`${pluginName}/scripts/main.js`)

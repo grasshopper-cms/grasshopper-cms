@@ -1,0 +1,68 @@
+#header {
+    display: none;
+}
+
+#plugin-sidebar{
+    background-color: #1d354d;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    height: 100%;
+    color: #e1ffff;
+    margin: 0;
+    padding: 0;
+}
+
+#plugin-sidebar a.logo {
+    position: relative;
+    display: block;
+    height: 50px;
+    width: 185px;
+    top: 12px;
+    margin-left: 5px;
+}
+
+#plugin-header{
+    background-color: #1d354d;
+    height:50px;
+    line-height: 50px;
+}
+#plugin-header .brand {
+    position: relative;
+    top: 9px;
+    display: block;
+    overflow: hidden;
+    width: 280px;
+    height: 32px;
+    margin-right: .75em;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#plugin-header .auth-ctrls {
+    position: absolute;
+    color: #fff;
+    right: 25px;
+    top: -1px;
+}
+
+#plugin-header .auth-ctrls span {
+    display: inline-block;
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+#plugin-main {
+    width: 100%;
+    float: left;
+    margin: 0;
+    padding-left: 200px;
+    display: inline;
+}
+
+.nav-side-menu {
+    overflow: hidden !important;
+}

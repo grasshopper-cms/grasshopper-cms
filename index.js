@@ -1,15 +1,16 @@
 'use strict';
 
 const api = require('grasshopper-api');
-const BB = require('bluebird');
 const plugins = require('./plugins');
+const BB = require('bluebird');
 
-module.exports = {
+let result = {
     authenticatedRequest: null,
     grasshopper: null,
-
     start : grasshopperService
 };
+
+module.exports = result;
 
 /**
  * options.app The express app
@@ -27,22 +28,27 @@ function grasshopperService(options) {
     // grasshopper.core
     // grasshopper.bridgetown
 
-    return new BB((resolve, reject) => {
-            grasshopper
-                .core.event.channel('/system/db')
-                .on('start', (payload, next) => {
-                    grasshopper
-                        .core.auth('basic', {
-                            username: options.admin.username, password: options.admin.password
-                        })
-                        .then(token => {
-                            resolve({
-                                authenticatedRequest: grasshopper.core.request(token),
-                                grasshopper: grasshopper
-                            });
-                            next();
-                        })
-                        .catch(reject);
+    return BB.bind({service: {}})
+        .then(() => {
+            return new BB((resolve, reject) => {
+                grasshopper
+                    .core.event.channel('/system/db')
+                    .on('start', (payload, next) => {
+                        grasshopper
+                            .core.auth('basic', {
+                                username: options.admin.username, password: options.admin.password
+                            })
+                            .then(token => {
+                                // Store these for convenience
+                                result.authenticatedRequest = grasshopper.core.request(token);
+                                result.grasshopper = grasshopper;
+
+                                // plugins curry ends up getting called with "result"
+                                resolve(result);
+                                next();
+                            })
+                            .catch(reject);
+                    });
                 });
         })
         .then(plugins(options));
