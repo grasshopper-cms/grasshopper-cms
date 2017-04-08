@@ -72,7 +72,7 @@ function startup(options) {
                         curUser: {}
                     };
 
-                    let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
+                    let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1] || '') : '';
 
                     grasshopperCms.grasshopper.core.request(authToken)
                         .users

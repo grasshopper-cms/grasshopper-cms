@@ -21,7 +21,6 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
             _getToken.call(this, this.model.get('username'), this.model.get('password'))
                 .done(function(tokenObj) {
                     _setLocalStorageToken.call(self, tokenObj);
-                    _setCookie.call(self, tokenObj);
                     _authenticateToken.call(self)
                         .done(_handleSuccessfulAuthentication.bind(self))
                         .fail(_handleFailedAuthentication.bind(self));
@@ -41,12 +40,6 @@ define(['api', 'jquery', 'resources', 'masseuse', 'helpers', 'constants'],
         function _setLocalStorageToken(tokenObj) {
             if ('Token' === tokenObj.token_type) {
                 LocalStorage.set('authToken', 'Basic '+ tokenObj.access_token);
-            }
-        }
-
-        function _setCookie(tokenObj) {
-            if ('Token' === tokenObj.token_type) {
-                Cookies.set('authToken', 'Basic '+ tokenObj.access_token);
             }
         }
 
