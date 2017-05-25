@@ -2,11 +2,8 @@
 define(['jquery'], function ($) {
     'use strict';
 
-    var _localStorage = window.localStorage,
-        _existenceCheckInterval = 10;
-
     /**
-     * A simple wrapper for local storage.
+     * A simple wrapper for local storage..... just kidding! cookies - we're moving from local storage to cookies
      */
     return {
         get : get,
@@ -14,37 +11,48 @@ define(['jquery'], function ($) {
         remove : remove
     };
 
-    function get (name) {
-        return _localStorage.getItem(name);
+    function set(name, value, days) {
+        var date,
+            expires,
+            cookie;
+
+        days = days || 14;
+
+        if (days) {
+            date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            expires = "; expires="+date.toGMTString();
+        } else {
+            expires = "";
+        }
+
+        document.cookie = name + "=" + value + expires + "; path=/";
     }
 
-    function set (name, value) {
-        return _localStorage.setItem(name, value);
+    function get(name) {
+        var nameEQ = name + "=",
+            ca = document.cookie.split(';'),
+            i,
+            c;
+
+        for(i=0; i < ca.length; i++) {
+            c = ca[i];
+            while (c.charAt(0)==' ') {
+                c = c.substring(1,c.length);
+            }
+            if (c.indexOf(nameEQ) == 0) {
+                return c.substring(nameEQ.length,c.length);
+            }
+        }
+        return null;
     }
 
-    /**
-     * Will remove the item from local storage, and return a promise that is resolved when the item can no longer be
-     * seen in LocalStorage
-     * @param name
-     * @returns {promise}
-     */
     function remove (name) {
         var $deferred = new $.Deferred();
 
-        _localStorage.removeItem(name);
-
-        _checkForExistence(name, $deferred);
+        set(name,"",-1);
+        $deferred.resolve();
 
         return $deferred.promise();
-    }
-
-    function _checkForExistence (name, $deferred) {
-        if (null === _localStorage.getItem(name)) {
-            $deferred.resolve();
-        } else {
-            setTimeout(function () {
-                _checkForExistence(name, $deferred);
-            }, _existenceCheckInterval);
-        }
     }
 });

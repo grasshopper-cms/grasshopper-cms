@@ -1,6 +1,6 @@
 {
   "name": "grasshopper-cms",
-  "version": "0.0.0-beta.22",
+  "version": "0.0.0-beta.26",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "atob": "^2.0.3",
     "bluebird": "^3.4.6",
     "cookie-parser": "^1.4.3",
-    "grasshopper-api": "^0.20.2",
+    "grasshopper-api": "^0.22.0",
     "lodash": "^4.17.2",
     "requirejs": "^2.3.2"
   }
