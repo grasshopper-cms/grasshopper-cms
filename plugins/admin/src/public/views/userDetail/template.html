@@ -51,7 +51,7 @@
                             <label for="email" class="right inline">{{model:resources->user->attributeTitles->email | withColon}}</label>
                         </div>
                         <div class="large-9 columns">
-                            <input id="email" type="text" data-rv-value="model:email" />
+                            <input autocomplete="off" id="email" type="text" data-rv-value="model:email" />
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
                             <label for="username" class="right inline">{{model:resources->user->attributeTitles->username | withColon}}</label>
                         </div>
                         <div class="large-9 columns">
-                            <input id="username" type="text" data-rv-value="model:identities->basic->username" data-rv-placeholder="model:resources->user->attributeTitles->username" />
+                            <input autocomplete="off" id="username" type="text" data-rv-value="model:identities->basic->username" data-rv-placeholder="model:resources->user->attributeTitles->username" />
                         </div>
                     </div>
 
@@ -69,7 +69,7 @@
                             <label for="password" class="right inline">{{model:resources->user->attributeTitles->password | withColon}}</label>
                         </div>
                         <div class="large-9 columns">
-                            <input id="password" type="password" data-rv-value="model:identities->basic->password" data-rv-placeholder="model:resources->user->attributeTitles->password" />
+                            <input autocomplete="off" id="password" type="password" data-rv-value="model:identities->basic->password" data-rv-placeholder="model:resources->user->attributeTitles->password" />
                         </div>
                     </div>
 
