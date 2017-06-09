@@ -41,29 +41,32 @@ html.no-js(lang='en')
                                     li
                                         a(href=plugin.name data-bypass)
                                             i.fa.fa-lg(class=plugin.icon)
-                                            | #{plugin.label}
+                                            | &#32;
+                                            = plugin.label
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
                     .auth-ctrls
-                        | Welcome,&nbsp;
-                        a(href=`user/${curUser._id}`)= curUser.displayName
+                        | Welcome,
+                        | &#32;
+                        a(href=`user/${curUser._id}`)= curUser.displayname
                         span |
                         a.logout(href="logout") Logout
 
             #siteContainter
                 // Where the plugin gets loaded
-                #app
-                    #header
-                    #masthead
-                    #loading-overlay-header
-                    #loading-overlay
-                        img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
-                    #sidebar
-                    #stage
-                    #alertBox
-                    #footer
-                    #modal
+                block app
+                    #app
+                        #header
+                        #masthead
+                        #loading-overlay-header
+                        #loading-overlay
+                            img.loading-overlay-image(src='themes/img/loading-spinner-horizontal.gif')
+                        #sidebar
+                        #stage
+                        #alertBox
+                        #footer
+                        #modal
 
         script.
             window.adminMountPoint = !{JSON.stringify(adminMountPoint)};

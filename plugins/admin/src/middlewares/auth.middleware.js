@@ -8,13 +8,11 @@ module.exports = (req, res, next) => {
 
     let authToken = '';
 
-    console.log('okay');
     if (req.cookies && req.cookies.authToken) {
         let token = req.cookies.authToken.split(' ')[1] || '';
         authToken = atob(token);
     }
 
-    console.log('boom');
     ghCore.request(authToken)
         .users
         .current()

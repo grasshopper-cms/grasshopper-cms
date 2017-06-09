@@ -17,35 +17,42 @@ function loadAdmin(plugin, options, grasshopperCms) {
         render(plugin, options, grasshopperCms)
     );
 
-    app.use(`${adminMountPoint}/${plugin.name}`, options.express.static(path.join(plugin.dir, 'public')));
+    app.use(`${adminMountPoint}/${plugin.name}`, options.express.static(path.join(plugin.path, 'public')));
 }
 
 function render(plugin, options, grasshopperCms) {
-    const adminMountPoint = options.grasshopper.adminMountPoint;
     return (req, res) => {
-        res.locals = {
+        Object.assign(res.locals, {
             isLegacyAdmin : false,
-            adminMountPoint: adminMountPoint + '/',
+            adminMountPoint: options.grasshopper.adminMountPoint + '/',
             pluginName: plugin.name,
             // all plugins need to be send in for each plugin due to the sidebar
             plugins: options.grasshopper.plugins,
             ghaConfigs: {
                 apiEndpoint: options.grasshopper.apiMountPoint
-            },
-            curUser: {}
-        };
+            }
+        });
 
-        let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1]) : '';
+        let authToken = req.cookies && req.cookies.authToken
+            ? atob(req.cookies.authToken.split(' ')[1])
+            : '';
 
         grasshopperCms.grasshopper.core.request(authToken)
             .users
             .current()
-            .then(function(reply) {
+            .then(reply => {
                 res.locals.curUser = reply;
-            })
-            .finally(function() {
-                // Render the legacy admin
-                res.render(path.join(__dirname, '../plugin.layout.pug'));
+
+                let templatePath;
+
+                if (plugin.template) {
+                    res.locals.basedir = path.join(__dirname, '..');
+                    templatePath = path.join(plugin.path, plugin.template);
+                } else {
+                    templatePath = path.join(__dirname, '../plugin.layout.pug')
+                }
+
+                res.render(templatePath);
             });
     };
 }
