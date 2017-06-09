@@ -105,7 +105,7 @@ define(['pluginBaseView', 'underscore', 'jquery',
                 .done(function() {
                     var assetUrl = this.model.get('assetModel.url');
 
-                    window.CKEDITOR.tools.callFunction(this.ckeditor._.filebrowserFn, assetUrl);
+                    window.CKEDITOR.dialog.getCurrent().setValueOf('info', 'txtUrl', assetUrl);
                 }.bind(this));
 
 
