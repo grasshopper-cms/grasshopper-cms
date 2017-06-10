@@ -8,8 +8,10 @@ const authMiddleware = require('./plugins/admin/src/middlewares/auth.middleware'
 let result = {
     authenticatedRequest: null,
     grasshopper: null,
-    start : grasshopperService,
-    authMiddleware
+    start: grasshopperService,
+    middlewares: {
+        auth: authMiddleware
+    }
 };
 
 module.exports = result;
