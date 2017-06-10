@@ -3,11 +3,13 @@
 const api = require('grasshopper-api');
 const plugins = require('./plugins');
 const BB = require('bluebird');
+const authMiddleware = require('./plugins/admin/src/middlewares/auth.middleware');
 
 let result = {
     authenticatedRequest: null,
     grasshopper: null,
-    start : grasshopperService
+    start : grasshopperService,
+    authMiddleware
 };
 
 module.exports = result;
