@@ -1,7 +1,5 @@
 # Grasshopper-CMS
 
-## This is currently in Beta
-
 Requires Node 6+.
 
 Demo Project at https://github.com/grasshopper-cms/grasshopper-demo .
