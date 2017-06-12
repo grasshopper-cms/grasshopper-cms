@@ -100,4 +100,4 @@ return ghService
     })
 ```
 
-_ Note: Update the [Release Notes](https://github.com/grasshopper-cms/grasshopper-cms/blob/master/RELEASE-NOTES.md) when publishing new versions._
+_Note: Update the [Release Notes](https://github.com/grasshopper-cms/grasshopper-cms/blob/master/RELEASE-NOTES.md) when publishing new versions._
