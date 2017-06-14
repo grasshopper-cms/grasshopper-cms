@@ -70,7 +70,7 @@ define(['backbone', 'masseuse', 'resources', 'constants', 'underscore', 'helpers
     }
 
     function toJSON() {
-        return _.clone(_.omit(this.attributes, 'resources', 'contants', 'schema', 'plugins', 'href'));
+        return _.clone(_.omit(this.attributes, 'resources', 'constants', 'schema', 'plugins', 'href'));
     }
 
     function toggle(propertyName) {

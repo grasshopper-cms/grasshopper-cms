@@ -41,11 +41,16 @@ define(['jquery', 'underscore', 'masseuse',
             },
             'swap-text-while' : function(el, revert) {
                 var $el = $(el);
+                var elWidth;
 
                 if(revert) {
                     if(!$el.attr('oldText')) { // Should Only Do this once.
                         $el.attr('oldText', $el.html());
-                        $el.width($el.width()); // Forces the buttons to maintain width.
+                        elWidth = $el.width();
+                        console.log('w', elWidth);
+                        if (elWidth > 0) {
+                            $el.width($el.width()); // Forces the buttons to maintain width.
+                        }
                     }
                     $el.html($el.attr('data-swap-html') || 'Saving...');
                 } else {
