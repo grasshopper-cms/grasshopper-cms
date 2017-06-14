@@ -47,7 +47,6 @@ define(['jquery', 'underscore', 'masseuse',
                     if(!$el.attr('oldText')) { // Should Only Do this once.
                         $el.attr('oldText', $el.html());
                         elWidth = $el.width();
-                        console.log('w', elWidth);
                         if (elWidth > 0) {
                             $el.width($el.width()); // Forces the buttons to maintain width.
                         }

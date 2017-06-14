@@ -1,5 +1,9 @@
 # Release Notes
 
+## v0.24.2
+
+* Console.log removal
+
 ## v0.24.1
 
 * Content references are now visible after adding a new one to a multi
