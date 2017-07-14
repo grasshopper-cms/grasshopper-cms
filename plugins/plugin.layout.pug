@@ -43,6 +43,10 @@ html.no-js(lang='en')
                                             i.fa.fa-lg(class=plugin.icon)
                                             | &#32;
                                             = plugin.label
+                            li
+                                a(href='help')
+                                    i.fa.fa-question.fa-lg
+                                    | Help
         #plugin-main
             #plugin-header
                 if curUser && curUser._id
