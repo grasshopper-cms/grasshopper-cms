@@ -2,26 +2,6 @@
     display: none;
 }
 
-#plugin-sidebar{
-    background-color: #1d354d;
-    position: fixed;
-    top: 0px;
-    width: 200px;
-    height: 100%;
-    color: #e1ffff;
-    margin: 0;
-    padding: 0;
-}
-
-#plugin-sidebar a.logo {
-    position: relative;
-    display: block;
-    height: 50px;
-    width: 185px;
-    top: 12px;
-    margin-left: 5px;
-}
-
 #plugin-header{
     background-color: #1d354d;
     height:50px;
