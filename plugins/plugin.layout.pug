@@ -47,6 +47,10 @@ html.no-js(lang='en')
                                 a(href='help')
                                     i.fa.fa-question.fa-lg
                                     | Help
+            .version
+                p
+                    em
+                        a(href="https://github.com/grasshopper-cms/grasshopper-cms") v#{version}
         #plugin-main
             #plugin-header
                 if curUser && curUser._id

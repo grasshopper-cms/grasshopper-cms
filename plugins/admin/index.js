@@ -3,6 +3,7 @@
 const path = require('path');
 const atob = require('atob');
 const url = require('url');
+const pkg = require('../../package.json');
 
 module.exports = loadAdmin;
 
@@ -30,7 +31,8 @@ function render(plugin, options, grasshopperCms) {
             plugins: options.grasshopper.plugins,
             ghaConfigs: {
                 apiEndpoint: options.grasshopper.apiMountPoint
-            }
+            },
+            version: pkg.version
         });
 
         let authToken = req.cookies && req.cookies.authToken

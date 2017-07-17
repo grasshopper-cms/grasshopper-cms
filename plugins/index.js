@@ -7,6 +7,7 @@ const loadRoutes = require('./loadRoutes');
 const path = require('path');
 const atob = require('atob');
 const opts = require('./options');
+const pkg = require('../package.json');
 
 const adminSrcAssetsDir = path.join(__dirname, 'admin', 'src', 'public');
 const adminDistAssetsDir = path.join(__dirname, 'admin', 'dist', 'public');
@@ -69,7 +70,8 @@ function startup(options) {
                         ghaConfigs : {
                             apiEndpoint : options.grasshopper.apiMountPoint
                         },
-                        curUser: {}
+                        curUser: {},
+                        version: pkg.version
                     };
 
                     let authToken = req.cookies && req.cookies.authToken ? atob(req.cookies.authToken.split(' ')[1] || '') : '';
