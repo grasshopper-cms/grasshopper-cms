@@ -1,5 +1,13 @@
 # Release Notes
 
+## v0.26.0
+
+* Version number visible
+
+## v0.25.0
+
+* Help pages available at `/admin/help`
+
 ## v0.24.2
 
 * Console.log removal
