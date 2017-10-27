@@ -23,7 +23,7 @@ define(['grasshopperModel', 'resources', 'underscore', 'constants', 'masseuse'],
         });
 
         function _buildUrl () {
-            return constants.api.assets.url.replace(':id', this.get('nodeId'));
+            return constants.api.assets.url.replace(':id', this.collection.nodeId);
         }
 
     });
