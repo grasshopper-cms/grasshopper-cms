@@ -4,7 +4,7 @@ Requires Node 6+.
 
 Demo Project at https://github.com/grasshopper-cms/grasshopper-demo .
 
-Docs at http://docs.grasshopper.ws . The below is an excerpt from the docs:
+Docs at http://grasshopper-docs.soliddigital.com . The below is an excerpt from the docs:
 
 # Quick Start
 
